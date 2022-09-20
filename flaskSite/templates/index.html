@@ -1,0 +1,110 @@
+{% extends "navbar.html" %}
+
+{% block content %}
+		
+		{% set WIDTH = 1100 %}
+		{% set HEIGHT = 550 %}
+		<center>
+			
+			<div id="carouselTop10Products" class="carousel slide" data-ride="carousel" data-interval="2000">
+
+				<!-- Wrapper for slides -->
+				<div class="carousel-inner">
+					
+					<div class="carousel-item active">
+						<a href="/products/processor">
+							<img class="d-block" src={{url_for('static', filename='top10products/processor.jpg')}} alt="Processor" width={{WIDTH}}, height={{HEIGHT}}>
+						</a>
+					</div>
+
+					<div class="carousel-item">
+						<a href="/products/motherboard">
+							<img class="d-block" src={{url_for('static', filename='top10products/motherboard.jpg')}} alt="Motherboard" width={{WIDTH}}, height={{HEIGHT}}>
+						</a>
+					</div>
+
+					<div class="carousel-item">
+						<a href="/products/graphicscard">
+							<img class="d-block" src={{url_for('static', filename='top10products/graphicscard.jpg')}} alt="Graphics Card" width={{WIDTH}}, height={{HEIGHT}}>
+						</a>
+					</div>
+					
+					<div class="carousel-item">
+						<a href="/products/powersupply">
+							<img class="d-block" src={{url_for('static', filename='top10products/powersupply.jpg')}} alt="Power Supply" width={{WIDTH}}, height={{HEIGHT}}>
+						</a>
+					</div>
+					
+					<div class="carousel-item">
+						<a href="/products/cabinet">
+							<img class="d-block" src={{url_for('static', filename='top10products/cabinet.jpg')}} alt="Cabinet" width={{WIDTH}}, height={{HEIGHT}}>
+						</a>
+					</div>
+					
+					<div class="carousel-item">
+						<a href="/products/memory">
+							<img class="d-block" src={{url_for('static', filename='top10products/memory.jpg')}} alt="Memory" width={{WIDTH}}, height={{HEIGHT}}>
+						</a>
+					</div>
+					
+					<div class="carousel-item">
+						<a href="/products/harddrive">
+							<img class="d-block" src={{url_for('static', filename='top10products/harddrive.jpg')}} alt="Hard Drive" width={{WIDTH}}, height={{HEIGHT}}>
+						</a>
+					</div>
+					
+					<div class="carousel-item">
+						<a href="/products/ssd">
+							<img class="d-block" src={{url_for('static', filename='top10products/ssd.jpg')}} alt="SSD" width={{WIDTH}}, height={{HEIGHT}}>
+						</a>
+					</div>
+					
+					<div class="carousel-item">
+						<a href="/products/monitor">
+							<img class="d-block" src={{url_for('static', filename='top10products/monitor.jpg')}} alt="Monitor" width={{WIDTH}}, height={{HEIGHT}}>
+						</a>
+					</div>
+					
+					<div class="carousel-item">
+						<a href="/products/cooler">
+							<img class="d-block" src={{url_for('static', filename='top10products/cooler.jpg')}} alt="Cooler" width={{WIDTH}}, height={{HEIGHT}}>
+						</a>
+					</div>
+				
+				</div>
+			
+			</div>
+		
+		</center>
+		
+		
+{% for key in items %}
+	{% set products = items[key] %}
+	{% set smaller = key.lower().replace(" ", "") %}
+		<br><br>
+		<a href="{{ smaller }}"><h1><font color="#0972eb">{{ key }}</font></h1></a>
+		<div class="row">
+	{% for product in products[:4] %}
+		{% set file = smaller + '/' + product._id.__str__() + ".jpg" %}
+			<div class="column">
+				<div class="card" style="width: 21rem;">
+					<img class="card-img-top" src={{ url_for('static', filename=file) }} alt="Card image cap" width="100" height="200">
+					<div class="card-body">
+						<h5 class="card-title">{{ product.name[:20] }}</h5>
+						<p class="card-text"></p>
+					{% if not username %}
+						<button type="button" class="btn btn-secondary disabled" data-toggle="tooltip" data-placement="top" title="Login To Purchase">
+							Buy It
+						</button>
+					{% else %}
+						<a href="{{ smaller + '/' + product._id.__str__() }}" class="btn btn-primary" target="_blank">Buy It</a>
+					{% endif %}
+					</div>
+				</div>
+			</div>
+	{% endfor %}
+		</div>
+{% endfor %}
+		
+
+{% endblock content %}
